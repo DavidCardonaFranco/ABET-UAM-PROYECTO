@@ -1,0 +1,49 @@
+<div class="container form-container">
+  <div class="row">
+      <h1 *ngIf="createMode">Create Subject</h1>
+      <h1 *ngIf="!createMode">Update Subject</h1>
+  </div>
+  <div class="row">
+      <div class="col-sm-3">
+          <label>Name:</label>
+      </div>
+      <div class="col-sm-9">
+          <input type="text" class="form-control" [(ngModel)]="theSubject.name">
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-sm-3">
+          <label>Description:</label>
+      </div>
+      <div class="col-sm-9">
+          <input type="text" class="form-control" [(ngModel)]="theSubject.description">
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-sm-3">
+          <label>Credits:</label>
+      </div>
+      <div class="col-sm-9">
+          <input type="number" class="form-control" [(ngModel)]="theSubject.credits">
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-sm-3">
+          <label>Code:</label>
+      </div>
+      <div class="col-sm-9">
+          <input type="text" class="form-control" [(ngModel)]="theSubject.code">
+      </div>
+  </div>
+  <div class="row">
+      <button class="btn cancel-btn btn-block" (click)="goBack()">
+          Cancel
+      </button>
+      <button *ngIf="createMode"  class="btn btn-primary btn-block" (click)="create()">
+          Create
+      </button>
+      <button *ngIf="!createMode"  class="btn btn-primary btn-block" (click)="update()">
+          Update
+      </button>
+  </div>
+</div>

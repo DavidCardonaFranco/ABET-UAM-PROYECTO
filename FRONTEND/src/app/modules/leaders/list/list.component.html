@@ -1,0 +1,24 @@
+<div class="container">
+  <h1 class="title">Leaders
+      <button class="btn btn-primary create-btn" (click)="createLeader()">Create</button>
+  </h1>
+  <table class="table">
+      <thead>
+          <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Options</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let leader of theLeaders">
+              <td scope="col">{{leader.name}}</td>
+              <td scope="col">{{leader.email}}</td>
+              <td scope="col">
+                  <button class="btn btn-primary" (click)="updateLeader(leader.id)">Update</button>
+                  <button class="btn btn-danger" (click)="deleteLeader(leader.id)">Delete</button>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+</div>

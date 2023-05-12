@@ -1,0 +1,33 @@
+<div class="container form-container">
+  <div class="row">
+      <h1 *ngIf="createMode">Create Evaluation</h1>
+      <h1 *ngIf="!createMode">Update Evaluation</h1>
+  </div>
+  <div class="row">
+      <div class="col-sm-3">
+          <label>ID:</label>
+      </div>
+      <div class="col-sm-9">
+          <input type="text" class="form-control" [(ngModel)]="theEvaluation.id" [readonly]="!createMode">
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-sm-3">
+          <label>Grade:</label>
+      </div>
+      <div class="col-sm-9">
+          <input type="number" min="0" max="100" class="form-control" [(ngModel)]="theEvaluation.grade">
+      </div>
+  </div>
+  <div class="row">
+      <button class="btn cancel-btn btn-block" (click)="goBack()">
+          Cancel
+      </button>
+      <button *ngIf="createMode"  class="btn btn-primary btn-block" (click)="create()">
+          Create
+      </button>
+      <button *ngIf="!createMode"  class="btn btn-primary btn-block" (click)="update()">
+          Update
+      </button>
+  </div>
+</div>

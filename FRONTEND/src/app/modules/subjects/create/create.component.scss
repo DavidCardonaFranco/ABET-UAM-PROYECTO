@@ -1,0 +1,76 @@
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+
+  .row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+
+      h1 {
+        font-family: Arial, sans-serif;
+        font-size: 40px;
+        font-weight: bold;
+        margin: 20px 0; // Aumenta el margen superior e inferior para un mejor espaciado
+      }
+    }
+
+
+  label {
+    display: block;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+
+  .form-control {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+  }
+
+  .btn {
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      padding: 6px 12px; // Disminuir el padding horizontal para hacerlos menos anchos
+      border-radius: 25px;
+      color: #fff;
+      transition: background-color 0.3s;
+      margin-right: 10px; // Agregar margen a la derecha para separar los botones
+
+      &.btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+
+        &:hover {
+          background-color: #0056b3;
+          border-color: #0056b3;
+        }
+      }
+
+      &.cancel-btn {
+        background-color: #eb8293;
+        border-color: #eb8293;
+
+        &:hover {
+          background-color: #eb4763;
+          border-color: #eb4763;
+        }
+      }
+
+      &.btn-block {
+        display: block;
+        width: auto; // Cambiar el ancho de 100% a auto
+        margin-bottom: 10px;
+        margin-left: auto; // Agregar margen izquierdo y derecho automático para centrar
+        margin-right: auto;
+      }
+    }
+}

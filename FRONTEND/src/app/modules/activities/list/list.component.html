@@ -1,0 +1,29 @@
+<div class="container">
+  <h1 class="title">Activities
+      <button class="btn btn-primary create-btn" (click)="createActivity()">Create</button>
+  </h1>
+  <table class="table">
+      <thead>
+          <tr>
+              <th *ngFor="let columnName of columns" scope="col">
+                  {{columnName}}
+              </th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let activity of theActivities">
+              <!--<td scope="col">{{activity.id}}</td>-->
+              <td scope="col">{{activity.name}}</td>
+              <td scope="col">{{activity.description}}</td>
+              <td scope="col">{{activity.start_date | date: 'mediumDate'}}</td>
+              <td scope="col">{{activity.end_date | date: 'mediumDate'}}</td>
+              <td scope="col">{{getSubjectName(activity.subject_id)}}</td>
+
+              <td scope="col">
+                  <button class="btn btn-primary" (click)="updateActivity(activity.id)">Update</button>
+                  <button class="btn btn-danger" (click)="deleteActivity(activity.id)">Delete</button>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+</div>

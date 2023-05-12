@@ -1,0 +1,28 @@
+<div class="container">
+  <h1 class="title">Subjects
+      <button class="btn btn-primary create-btn" (click)="createSubject()">Create</button>
+  </h1>
+  <table class="table">
+      <thead>
+          <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Description</th>
+              <th scope="col">Credits</th>
+              <th scope="col">Code</th>
+              <th scope="col">Options</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let subject of theSubjects">
+              <td scope="col">{{subject.name}}</td>
+              <td scope="col">{{subject.description}}</td>
+              <td scope="col">{{subject.credits}}</td>
+              <td scope="col">{{subject.code}}</td>
+              <td scope="col">
+                  <button class="btn btn-primary" (click)="updateSubject(subject.id)">Update</button>
+                  <button class="btn btn-danger" (click)="deleteSubject(subject.id)">Delete</button>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+</div>

@@ -1,0 +1,24 @@
+<div class="container">
+  <h1 class="title">Evaluations
+      <button class="btn btn-primary create-btn" (click)="createEvaluation()">Create</button>
+  </h1>
+  <table class="table">
+      <thead>
+          <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Grade</th>
+              <th scope="col">Actions</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let evaluation of theEvaluations">
+              <td scope="col">{{evaluation.id}}</td>
+              <td scope="col">{{evaluation.grade}}</td>
+              <td scope="col">
+                  <button class="btn btn-primary" (click)="updateEvaluation(evaluation.id)">Update</button>
+                  <button class="btn btn-danger" (click)="deleteEvaluation(evaluation.id)">Delete</button>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+</div>
