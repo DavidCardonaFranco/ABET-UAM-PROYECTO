@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Subject } from '../models/subject';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../enviroments/enviroment';
+import { SecuritiesService } from './security.service';
 
 export interface ServerResponse {
   message: string;
@@ -19,26 +20,46 @@ export interface SingleSubjectResponse {
   providedIn: 'root'
 })
 export class SubjectsService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private securitiesService: SecuritiesService) { }
 
   index(): Observable<ServerResponse> {
-    return this.http.get<ServerResponse>(`${environment.url_backend}/Subjects`);
+    const headers = {
+      'Authorization': `Bearer ${this.securitiesService.getToken()}`,
+      'Content-Type': 'application/json'
+    };
+    return this.http.get<ServerResponse>(`${environment.url_backend}/Subjects`, {headers});
   }
 
   create(theSubject:Subject): Observable<SingleSubjectResponse> {
-    return this.http.post<SingleSubjectResponse>(`${environment.url_backend}/Subjects`, theSubject);
+    const headers = {
+      'Authorization': `Bearer ${this.securitiesService.getToken()}`,
+      'Content-Type': 'application/json'
+    };
+    return this.http.post<SingleSubjectResponse>(`${environment.url_backend}/Subjects`, theSubject, {headers});
   }
 
   update(theSubject:Subject): Observable<SingleSubjectResponse> {
     console.log(JSON.stringify(theSubject));
-    return this.http.put<SingleSubjectResponse>(`${environment.url_backend}/Subjects/${theSubject.id}`, theSubject);
+    const headers = {
+      'Authorization': `Bearer ${this.securitiesService.getToken()}`,
+      'Content-Type': 'application/json'
+    };
+    return this.http.put<SingleSubjectResponse>(`${environment.url_backend}/Subjects/${theSubject.id}`, theSubject, {headers});
   }
 
   show(id:number): Observable<SingleSubjectResponse> {
-    return this.http.get<SingleSubjectResponse>(`${environment.url_backend}/Subjects/${id}`);
+    const headers = {
+      'Authorization': `Bearer ${this.securitiesService.getToken()}`,
+      'Content-Type': 'application/json'
+    };
+    return this.http.get<SingleSubjectResponse>(`${environment.url_backend}/Subjects/${id}`, {headers});
   }
 
   destroy(id:number): Observable<SingleSubjectResponse> {
-    return this.http.delete<SingleSubjectResponse>(`${environment.url_backend}/Subjects/${id}`);
+    const headers = {
+      'Authorization': `Bearer ${this.securitiesService.getToken()}`,
+      'Content-Type': 'application/json'
+    };
+    return this.http.delete<SingleSubjectResponse>(`${environment.url_backend}/Subjects/${id}`, {headers});
   }
 }

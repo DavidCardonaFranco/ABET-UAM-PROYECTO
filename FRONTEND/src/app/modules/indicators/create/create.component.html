@@ -1,0 +1,55 @@
+<div class="container form-container">
+  <div class="row">
+      <h1 *ngIf="createMode">Create Indicator</h1>
+      <h1 *ngIf="!createMode">Update Indicator</h1>
+  </div>
+  <div class="row">
+      <div class="col-sm-3">
+          <label>Name:</label>
+      </div>
+      <div class="col-sm-9">
+          <input type="text" class="form-control" [(ngModel)]="theIndicator.name">
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-sm-3">
+          <label>Expected Value:</label>
+      </div>
+      <div class="col-sm-9">
+          <select class="form-control" [(ngModel)]="theIndicator.expected_value">
+              <option *ngFor="let value of expectedValues" [value]="value">{{value}}</option>
+          </select>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-sm-3">
+          <label>Real Value:</label>
+      </div>
+      <div class="col-sm-9">
+          <select class="form-control" [(ngModel)]="theIndicator.real_value">
+              <option *ngFor="let value of realValues" [value]="value">{{value}}</option>
+          </select>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-sm-3">
+          <label>Outcome:</label>
+      </div>
+      <div class="col-sm-9">
+          <select class="form-control" [(ngModel)]="theIndicator.id_outcome">
+              <option *ngFor="let outcome of outcomes" [value]="outcome.id">{{outcome.name}}</option>
+          </select>
+      </div>
+  </div>
+  <div class="row">
+      <button class="btn cancel-btn btn-block" (click)="goBack()">
+          Cancel
+      </button>
+      <button *ngIf="createMode"  class="btn btn-primary btn-block" (click)="create()">
+          Create
+      </button>
+      <button *ngIf="!createMode"  class="btn btn-primary btn-block" (click)="update()">
+          Update
+      </button>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="container">
+  <h1 class="title">Proffesor Subjects
+      <button *ngIf='createPermissions' class="btn btn-primary create-btn" (click)="createProffesorSubject()">Create</button>
+  </h1>
+  <table class="table">
+      <thead>
+        <th *ngFor="let columnName of columns" scope="col">
+          {{columnName}}
+        </th>
+      </thead>
+      <tbody>
+          <tr *ngFor="let proffesorSubject of theProffesorSubjects">
+              <td scope="col">{{getProffesorName(proffesorSubject.proffesor_id)}}</td>
+              <td scope="col">{{getSubjectName(proffesorSubject.subject_id)}}</td>
+              <td *ngIf='options' scope="col">
+                  <button *ngIf='updatePermissions' class="btn btn-primary" (click)="updateProffesorSubject(proffesorSubject.id)">Update</button>
+                  <button *ngIf='deletePermissions' class="btn btn-danger" (click)="deleteProffesorSubject(proffesorSubject.id)">Delete</button>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+</div>

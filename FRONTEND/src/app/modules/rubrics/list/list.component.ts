@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 import { Rubric } from '../../../models/rubric';
 import { RubricsService } from '../../../services/rubrics.service';
 import { Router } from '@angular/router';
+import { SecuritiesService } from 'src/app/services/security.service';
 
 @Component({
   selector: 'ngx-list',
@@ -10,14 +11,46 @@ import { Router } from '@angular/router';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-  columns:string[] = ['name', 'description', 'options'];
+  columns:string[] = ['Name', 'Description', 'Options'];
   theRubrics:Rubric[] = [];
 
   constructor(private rubricsService: RubricsService,
+              private securitiesService: SecuritiesService,
               private router:Router) { }
 
   ngOnInit(): void {
     this.listRubrics();
+    this.hasPermissions();
+  }
+
+  deletePermissions:boolean = false;
+  updatePermissions:boolean = false;
+  createPermissions:boolean = false;
+  options:boolean = false;
+
+  hasPermissions(): void {
+    const role = this.securitiesService.getRole();
+    const expectedRolesDelete = ['1','2'];
+    const expectedRolesUpdate = ['1','2'];
+    const expectedRolesCreate = ['1','2'];
+
+    if (expectedRolesDelete.includes(role)) {
+      this.deletePermissions = true;
+    }
+    if (expectedRolesUpdate.includes(role)) {
+      this.updatePermissions = true;
+    }
+    if (expectedRolesCreate.includes(role)) {
+      this.createPermissions = true;
+    }
+
+    if (this.deletePermissions || this.updatePermissions) {
+      this.columns = ['Name', 'Description', 'Options'];
+      this.options = true;
+    }else {
+      this.columns = ['Name', 'Description'];
+      this.options = false;
+    }
   }
 
   listRubrics(): void {

@@ -3,6 +3,9 @@ import Swal from 'sweetalert2';
 import { Evaluation } from '../../../models/evaluation';
 import { EvaluationsService } from '../../../services/evaluations.service';
 import { Router } from '@angular/router';
+import { Activity } from 'src/app/models/activity';
+import { ActivitiesService } from 'src/app/services/activities.service';
+import { SecuritiesService } from 'src/app/services/security.service';
 
 @Component({
   selector: 'ngx-list',
@@ -10,14 +13,64 @@ import { Router } from '@angular/router';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-  columns:string[] = ['id', 'grade', 'options'];
+  columns:string[] = [];
   theEvaluations:Evaluation[] = [];
+  activities: Activity[] = [];
 
   constructor(private evaluationsService: EvaluationsService,
+              private securitiesService: SecuritiesService,
+              private activitiesService: ActivitiesService,
               private router:Router) { }
 
   ngOnInit(): void {
     this.listEvaluations();
+    this.getActivities();
+    this.hasPermissions();
+  }
+
+  deletePermissions:boolean = false;
+  updatePermissions:boolean = false;
+  createPermissions:boolean = false;
+  options:boolean = false;
+
+  hasPermissions(): void {
+    const role = this.securitiesService.getRole();
+    const expectedRolesDelete = ['1','4'];
+    const expectedRolesUpdate = ['1','4'];
+    const expectedRolesCreate = ['1','4'];
+
+    if (expectedRolesDelete.includes(role)) {
+      this.deletePermissions = true;
+    }
+    if (expectedRolesUpdate.includes(role)) {
+      this.updatePermissions = true;
+    }
+    if (expectedRolesCreate.includes(role)) {
+      this.createPermissions = true;
+    }
+
+    if (this.deletePermissions || this.updatePermissions) {
+      this.columns = ['Grade','Activity', 'Options'];
+      this.options = true;
+    }else {
+      this.columns = ['Grade','Activity']
+      this.options = false;
+    }
+  }
+
+  getActivities() {
+    this.activitiesService.index().subscribe(response => {
+      this.activities = response.data;
+    });
+  }
+
+  getActivityName(id: number | undefined): string {
+    if (id === undefined) {
+      return '';
+    }
+
+    const activity = this.activities.find(activity => activity.id === id);
+    return activity?.name || '';
   }
 
   listEvaluations(): void {

@@ -16,6 +16,7 @@
 
   .navbar-menu {
     float: right;
+    display: flex;
 
     a {
       display: inline-block;
@@ -28,6 +29,14 @@
       &:hover {
         color: #007bff;
       }
+    }
+
+    a:last-child {
+      order: 3;
+    }
+
+    .dropdown {
+      order: 2;
     }
   }
 

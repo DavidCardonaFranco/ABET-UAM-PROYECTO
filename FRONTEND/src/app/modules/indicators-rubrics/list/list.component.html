@@ -1,0 +1,22 @@
+<div class="container">
+  <h1 class="title">Indicator Rubrics
+      <button *ngIf='createPermissions' class="btn btn-primary create-btn" (click)="createIndicatorRubric()">Create</button>
+  </h1>
+  <table class="table">
+      <thead>
+        <th *ngFor="let columnName of columns" scope="col">
+          {{columnName}}
+        </th>
+      </thead>
+      <tbody>
+          <tr *ngFor="let indicatorRubric of theIndicatorRubrics">
+              <td scope="col">{{getRubricName(indicatorRubric.id_rubric)}}</td>
+              <td scope="col">{{getIndicatorName(indicatorRubric.id_indicator)}}</td>
+              <td *ngIf='options' scope="col">
+                  <button *ngIf='updatePermissions' class="btn btn-primary" (click)="updateIndicatorRubric(indicatorRubric.id)">Update</button>
+                  <button *ngIf='deletePermissions' class="btn btn-danger" (click)="deleteIndicatorRubric(indicatorRubric.id)">Delete</button>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+</div>

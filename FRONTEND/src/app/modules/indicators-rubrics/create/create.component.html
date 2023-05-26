@@ -1,0 +1,37 @@
+<div class="container form-container">
+  <div class="row">
+      <h1 *ngIf="createMode">Create Indicator Rubric</h1>
+      <h1 *ngIf="!createMode">Update Indicator Rubric</h1>
+  </div>
+  <div class="row">
+      <div class="col-sm-3">
+          <label>Rubric:</label>
+      </div>
+      <div class="col-sm-9">
+          <select class="form-control" [(ngModel)]="theIndicatorRubric.id_rubric">
+              <option *ngFor="let rubric of rubrics" [value]="rubric.id">{{rubric.name}}</option>
+          </select>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-sm-3">
+          <label>Indicator:</label>
+      </div>
+      <div class="col-sm-9">
+          <select class="form-control" [(ngModel)]="theIndicatorRubric.id_indicator">
+              <option *ngFor="let indicator of indicators" [value]="indicator.id">{{indicator.name}}</option>
+          </select>
+      </div>
+  </div>
+  <div class="row">
+      <button class="btn cancel-btn btn-block" (click)="goBack()">
+          Cancel
+      </button>
+      <button *ngIf="createMode"  class="btn btn-primary btn-block" (click)="create()">
+          Create
+      </button>
+      <button *ngIf="!createMode"  class="btn btn-primary btn-block" (click)="update()">
+          Update
+      </button>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 <div class="container">
   <h1 class="title">Activities
-      <button class="btn btn-primary create-btn" (click)="createActivity()">Create</button>
+      <button *ngIf='createPermissions' class="btn btn-primary create-btn" (click)="createActivity()">Create</button>
   </h1>
   <table class="table">
       <thead>
@@ -19,9 +19,9 @@
               <td scope="col">{{activity.end_date | date: 'mediumDate'}}</td>
               <td scope="col">{{getSubjectName(activity.subject_id)}}</td>
 
-              <td scope="col">
-                  <button class="btn btn-primary" (click)="updateActivity(activity.id)">Update</button>
-                  <button class="btn btn-danger" (click)="deleteActivity(activity.id)">Delete</button>
+              <td *ngIf='options' scope="col">
+                  <button class="btn btn-primary" *ngIf='updatePermissions' (click)="updateActivity(activity.id)">Update</button>
+                  <button class="btn btn-danger" *ngIf='deletePermissions' (click)="deleteActivity(activity.id)">Delete</button>
               </td>
           </tr>
       </tbody>

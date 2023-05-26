@@ -56,14 +56,17 @@ export default class StudentsOutcomesController {
 
   public async destroy({ params, response }: HttpContextContract) {
     try {
-      const studentsOutcome = await StudentsOutcome.findOrFail(params.id);
+      //const studentsOutcome = await StudentsOutcome.firstOrFail(params.id);
+      const studentsOutcome = await StudentsOutcome.query()
+      .where('id', params.id)
+      .firstOrFail();
       await studentsOutcome.delete();
       response.status(200).json({
         message: 'StudentsOutcome eliminado exitosamente.',
         data: studentsOutcome
       });
     } catch (error) {
-      response.status(404).json({ message: 'StudentsOutcome no encontrado.' });
+      response.status(404).json({ message: 'StudentsOutcome no encontrado.'});
     }
   }
 }

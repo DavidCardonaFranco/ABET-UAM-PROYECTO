@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 import { Subject } from '../../../models/subject';
 import { SubjectsService } from '../../../services/subjects.service';
 import { Router } from '@angular/router';
+import { SecuritiesService } from 'src/app/services/security.service';
 
 @Component({
   selector: 'ngx-list',
@@ -10,14 +11,46 @@ import { Router } from '@angular/router';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-  columns:string[] = ['name', 'description', 'credits', 'code', 'options'];
+  columns:string[] = ['Name', 'Description', 'Credits', 'Code', 'Options'];
   theSubjects:Subject[] = [];
 
   constructor(private subjectsService: SubjectsService,
+              private securitiesService: SecuritiesService,
               private router:Router) { }
 
   ngOnInit(): void {
     this.listSubjects();
+    this.hasPermissions();
+  }
+
+  deletePermissions:boolean = false;
+  updatePermissions:boolean = false;
+  createPermissions:boolean = false;
+  options:boolean = false;
+
+  hasPermissions(): void {
+    const role = this.securitiesService.getRole();
+    const expectedRolesDelete = ['1'];
+    const expectedRolesUpdate = ['1'];
+    const expectedRolesCreate = ['1'];
+
+    if (expectedRolesDelete.includes(role)) {
+      this.deletePermissions = true;
+    }
+    if (expectedRolesUpdate.includes(role)) {
+      this.updatePermissions = true;
+    }
+    if (expectedRolesCreate.includes(role)) {
+      this.createPermissions = true;
+    }
+
+    if (this.deletePermissions || this.updatePermissions) {
+      this.columns = ['Name', 'Description', 'Credits', 'Code', 'Options'];
+      this.options = true;
+    }else {
+      this.columns = ['Name', 'Description', 'Credits', 'Code'];
+      this.options = false;
+    }
   }
 
   listSubjects(): void {

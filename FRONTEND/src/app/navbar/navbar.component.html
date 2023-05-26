@@ -5,20 +5,25 @@
     <a href="#">ABET</a>
   </div>
   <div class="navbar-menu">
-    <a href="#">Inicio</a>
-    <a href="#">Acerca de</a>
-    <div class="dropdown">
+    <a *ngIf="securitiesService.isLoggedIn()" href="#">Inicio</a>
+    <div *ngIf="securitiesService.isLoggedIn()" class="dropdown">
       <button class="dropbtn">Más
         <i class="fa fa-caret-down"></i>
       </button>
       <div class="dropdown-content">
-        <a href="/Activities/list">Activities</a>
-        <a href="/Evaluations/list">Evaluations</a>
-        <a href="/Leaders/list">Leaders</a>
-        <a href="/Proffesors/list">Proffesors</a>
-        <a href="/Rubrics/list">Rubrics</a>
-        <a href="/Subjects/list">Subjects</a>
+        <a *ngIf="getActivities" href="/Activities/list">Activities</a>
+        <a *ngIf="getEvaluations" href="/Evaluations/list">Evaluations</a>
+        <a *ngIf="getUsers" href="/Users/list">Users</a>
+        <a *ngIf="getRubrics" href="/Rubrics/list">Rubrics</a>
+        <a *ngIf="getSubjects" href="/Subjects/list">Subjects</a>
+        <a *ngIf="getIndicators" href="/Indicators/list">Indicators</a>
+        <a *ngIf="getOutcomes" href="/Outcomes/list">Outcomes</a>
+        <a *ngIf="getIndicatorsRubrics" href="/IndicatorsRubrics/list">Indicators-Rubrics</a>
+        <a *ngIf="getOutcomesSubjects" href="/OutcomesSubjects/list">Outcomes-Subjects</a>
+        <a *ngIf="getProffesorsSubjects" href="/ProffesorsSubjects/list">Proffesors-Subjects</a>
       </div>
     </div>
+    <a *ngIf="!securitiesService.isLoggedIn()" href="/Securities/login">Iniciar Sesion</a>
+    <a *ngIf="securitiesService.isLoggedIn()" class="logout-link" (click)="onLogout()">Cerrar Sesion</a>
   </div>
 </nav>

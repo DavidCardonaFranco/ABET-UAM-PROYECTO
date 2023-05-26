@@ -16,7 +16,7 @@ export default class EvaluationsController {
 
   public async store({ request, response }: HttpContextContract) {
     try {
-      const data = request.only(['grade']);
+      const data = request.only(['grade','activity_id']);
       const evaluation = await Evaluation.create(data);
       response.status(201).json({
         message: 'Evaluación creada exitosamente.',
@@ -42,7 +42,7 @@ export default class EvaluationsController {
   public async update({ request, params, response }: HttpContextContract) {
     try {
       const evaluation = await Evaluation.findOrFail(params.id);
-      const data = request.only(['grade']);
+      const data = request.only(['grade','activity_id']);
       evaluation.merge(data);
       await evaluation.save();
       response.status(200).json({

@@ -1,22 +1,20 @@
 <div class="container">
   <h1 class="title">Rubrics
-      <button class="btn btn-primary create-btn" (click)="createRubric()">Create</button>
+      <button *ngIf='createPermissions' class="btn btn-primary create-btn" (click)="createRubric()">Create</button>
   </h1>
   <table class="table">
       <thead>
-          <tr>
-              <th scope="col">Name</th>
-              <th scope="col">Description</th>
-              <th scope="col">Options</th>
-          </tr>
+        <th *ngFor="let columnName of columns" scope="col">
+          {{columnName}}
+        </th>
       </thead>
       <tbody>
           <tr *ngFor="let rubric of theRubrics">
               <td scope="col">{{rubric.name}}</td>
               <td scope="col">{{rubric.description}}</td>
-              <td scope="col">
-                  <button class="btn btn-primary" (click)="updateRubric(rubric.id)">Update</button>
-                  <button class="btn btn-danger" (click)="deleteRubric(rubric.id)">Delete</button>
+              <td *ngIf='options' scope="col">
+                  <button *ngIf='updatePermissions' class="btn btn-primary" (click)="updateRubric(rubric.id)">Update</button>
+                  <button *ngIf='deletePermissions' class="btn btn-danger" (click)="deleteRubric(rubric.id)">Delete</button>
               </td>
           </tr>
       </tbody>

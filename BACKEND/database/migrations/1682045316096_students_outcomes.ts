@@ -9,7 +9,8 @@ export default class extends BaseSchema {
       table.string('name')
       table.string('description')
       table.float('grade')
-      table.integer('id_leader').unsigned().references('leaders.id')
+      table.integer('id_leader').unsigned().references('id').inTable('users').notNullable()
+
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */

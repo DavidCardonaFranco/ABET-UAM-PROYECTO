@@ -4,6 +4,8 @@ import Swal from 'sweetalert2';
 import { Evaluation } from '../../../models/evaluation';
 import { EvaluationsService } from '../../../services/evaluations.service';
 import { Location } from '@angular/common';
+import { ActivitiesService } from 'src/app/services/activities.service';
+import { Activity } from 'src/app/models/activity';
 
 @Component({
   selector: 'ngx-create',
@@ -19,9 +21,12 @@ export class CreateComponent implements OnInit {
     "grade": 0,
   }
 
+  activities: Activity[] = [];
+
   constructor(private evaluationService: EvaluationsService,
               private router:Router,
               private activeRoute: ActivatedRoute,
+              private activitiesService: ActivitiesService,
               private location: Location) { }
 
   ngOnInit(): void {
@@ -32,6 +37,22 @@ export class CreateComponent implements OnInit {
    } else {
     this.createMode = true;
    }
+   this.getActivities();
+  }
+
+  getActivities() {
+    this.activitiesService.index().subscribe(response => {
+      this.activities = response.data;
+    });
+  }
+
+  getActivityName(id: number | undefined): string {
+    if (id === undefined) {
+      return '';
+    }
+
+    const activity = this.activities.find(activity => activity.id === id);
+    return activity?.name || '';
   }
 
   getEvaluation(id:number) {

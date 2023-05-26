@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import { BaseModel, HasOne, ManyToMany, column, hasOne, manyToMany } from '@ioc:Adonis/Lucid/Orm'
 import Subject from './Subject'
-import Leader from './Leader'
+import User from './User'
 
 export default class StudentOutcome extends BaseModel {
   public static table = 'students_outcomes'
@@ -34,8 +34,8 @@ export default class StudentOutcome extends BaseModel {
   })
   public Subjects: ManyToMany<typeof Subject>
 
-  @hasOne(() => Leader, {
+  @hasOne(() => User, {
     foreignKey: 'id_leader',
   })
-  public Leader: HasOne<typeof Leader>
+  public Leader: HasOne<typeof User>
 }

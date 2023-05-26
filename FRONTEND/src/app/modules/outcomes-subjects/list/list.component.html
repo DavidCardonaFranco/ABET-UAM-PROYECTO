@@ -1,0 +1,22 @@
+<div class="container">
+  <h1 class="title">Outcome Subjects
+      <button *ngIf='createPermissions' class="btn btn-primary create-btn" (click)="createOutcomeSubject()">Create</button>
+  </h1>
+  <table class="table">
+      <thead>
+        <th *ngFor="let columnName of columns" scope="col">
+          {{columnName}}
+        </th>
+      </thead>
+      <tbody>
+          <tr *ngFor="let outcomeSubject of theOutcomesSubjects">
+              <td scope="col">{{getOutcomeName(outcomeSubject.id_outcome)}}</td>
+              <td scope="col">{{getSubjectName(outcomeSubject.subject_id)}}</td>
+              <td *ngIf='options' scope="col">
+                  <button *ngIf='updatePermissions' class="btn btn-primary" (click)="updateOutcomeSubject(outcomeSubject.id)">Update</button>
+                  <button *ngIf='deletePermissions' class="btn btn-danger" (click)="deleteOutcomeSubject(outcomeSubject.id)">Delete</button>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+</div>

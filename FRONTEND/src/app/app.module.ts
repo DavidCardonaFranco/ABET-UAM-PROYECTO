@@ -7,6 +7,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { authGuard } from './auth.guard';
+import { roleGuard } from './role.guard';
+
 
 @NgModule({
   declarations: [
@@ -18,9 +22,10 @@ import { NavbarComponent } from './navbar/navbar.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [authGuard, roleGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

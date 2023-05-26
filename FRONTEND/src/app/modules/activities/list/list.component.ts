@@ -5,6 +5,7 @@ import { ActivitiesService } from '../../../services/activities.service';
 import { Router } from '@angular/router';
 import { SubjectsService } from 'src/app/services/subjects.service';
 import { Subject } from 'src/app/models/subject';
+import { SecuritiesService } from 'src/app/services/security.service';
 
 @Component({
   selector: 'ngx-list',
@@ -12,16 +13,48 @@ import { Subject } from 'src/app/models/subject';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-  columns:string[] = [/*'id',*/ 'name', 'description', 'start date', 'end date', 'subject', 'options'];
+  columns:string[] = [];
   theActivities:Activity[] = [];
 
   constructor(private activitiesService: ActivitiesService,
+              private securitiesService: SecuritiesService,
               private router:Router,
               private subjectService: SubjectsService,) { }
 
   ngOnInit(): void {
     this.listActivities();
     this.getSubjects();
+    this.hasPermissions();
+  }
+
+  deletePermissions:boolean = false;
+  updatePermissions:boolean = false;
+  createPermissions:boolean = false;
+  options: boolean = false;
+
+  hasPermissions(): void {
+    const role = this.securitiesService.getRole();
+    const expectedRolesDelete = ['1','4'];
+    const expectedRolesUpdate = ['1','4'];
+    const expectedRolesCreate = ['1','4'];
+
+    if (expectedRolesDelete.includes(role)) {
+      this.deletePermissions = true;
+    }
+    if (expectedRolesUpdate.includes(role)) {
+      this.updatePermissions = true;
+    }
+    if (expectedRolesCreate.includes(role)) {
+      this.createPermissions = true;
+    }
+
+    if (this.deletePermissions || this.updatePermissions) {
+      this.columns = ['Name', 'Description', 'Start date', 'End date', 'Subject', 'Options'];
+      this.options = true;
+    }else {
+      this.columns = ['Name', 'Description', 'Start date', 'End date', 'Subject']
+      this.options = false;
+    }
   }
 
   subjects: Subject[] = [];
